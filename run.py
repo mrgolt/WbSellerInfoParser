@@ -22,7 +22,7 @@ logger.add(sink='logs/debug.log', format=LOG_FMT, level='INFO', diagnose=True, b
 
 
 class ConfigData:
-    timeout = 1
+    timeout = 15
     sql_file = os.path.abspath('WBSellersBase.db')
     dev = 'https://github.com/MalakhovStas'
     HOST = 'https://www.wildberries.ru'
@@ -223,7 +223,7 @@ class ParseUtils:
         except NoSuchElementException:
             company_name, company_address, company_ogrn = 'нет информации', 'нет информации', 'нет информации'
         except TimeoutException:
-            company_name, company_address, company_ogrn = 'нет информации', 'нет информации', 'нет информации'
+            company_name, company_address, company_ogrn = 'таймаут', 'таймаут', 'таймаут'
         return company_name, company_address, company_ogrn
 
     @staticmethod
@@ -238,7 +238,7 @@ class ParseUtils:
         except NoSuchElementException:
             how_long_selling = 'нет информации'
         except TimeoutException:
-            how_long_selling = 'нет информации'
+            how_long_selling = 'таймаут'
 
         return how_long_selling
 
@@ -252,7 +252,7 @@ class ParseUtils:
         except NoSuchElementException:
             how_many_items_sold = 'нет информации'
         except TimeoutException:
-            how_many_items_sold = 'нет информации'
+            how_many_items_sold = 'таймаут'
         else:
             if '%' in how_many_items_sold:
                 how_many_items_sold = 'нет информации'
@@ -269,7 +269,7 @@ class ParseUtils:
         except NoSuchElementException:
             categories = 'нет информации'
         except TimeoutException:
-            categories = 'нет информации'
+            categories = 'таймаут'
 
         return categories
 
@@ -286,7 +286,7 @@ class ParseUtils:
         except NoSuchElementException:
             brands = 'нет информации'
         except TimeoutException:
-            brands = 'нет информации'
+            brands = 'таймаут'
         else:
             if not brands:
                 brands = 'нет информации'
@@ -353,7 +353,8 @@ class Parser:
         add_seller, num_pages, start_id, stop_id = 0, 0, 0, 0
         try:
             while stage != 'stop':
-                start_id, stop_id = MiscUtils.get_range_sellers_id()
+                #start_id, stop_id = MiscUtils.get_range_sellers_id()
+                start_id, stop_id = 1,100
                 logger.info(f'Начинаю парсинг, в базе {db.count_all_sellers()} селлеров')
 
                 add_seller, num_pages = ParseStream.func_stream(db, start_id, stop_id)
