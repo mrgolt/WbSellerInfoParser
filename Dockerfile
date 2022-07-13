@@ -2,6 +2,7 @@ FROM python:3.8
 
 ADD . /usr/src/app
 
+COPY requirements.txt ./
 RUN pip install -r requirements.txt
 
 RUN apt-get update
