@@ -9,4 +9,6 @@ RUN apt-get update
 RUN apt-get -y install locales
 RUN locale-gen ru_RU.UTF-8
 
+COPY . .
+
 CMD ["python", "-u", "./run.py"]
