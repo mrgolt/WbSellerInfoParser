@@ -374,3 +374,4 @@ class Parser:
 if __name__ == '__main__':
     os.system("mode con cols=200 lines=40")
     Parser.parser()
+

@@ -1,0 +1,14 @@
+version: '3.1'
+
+services:
+
+  parser:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: parser
+    restart: always
+    links:
+      - db
+
+
